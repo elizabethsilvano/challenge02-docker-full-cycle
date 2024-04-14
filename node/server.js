@@ -6,24 +6,20 @@ const port = 3000;
 const connection = mysql.createConnection({
   host: 'db',
   user: 'root',
-  password: 'root',
-  database: 'fullcycle'
+  password: 'password',
+  database: 'full_cycle'
 });
 
-connection.connect();
-
 app.get('/', (req, res) => {
-    connection.query('INSERT INTO people(name) VALUES ("Random")', (err, result) => {
+    connection.query('INSERT INTO people(name) VALUES ("Random Name")', (err) => {
         if (err) throw err;
-
         connection.query('SELECT name FROM people', (err, results) => {
             if (err) throw err;
-
             res.send('<h1>Full Cycle Rocks!</h1>' + results.map(person => `<h2>${person.name}</h2>`).join(''));
         });
     });
 });
 
 app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
+  console.log(`App running on port ${port}`);
 });
